@@ -59,7 +59,7 @@ async def top(interaction: discord.Interaction):
     for token_id, data in sorted_tokens:
         emoji = tier_emojis.get(data["tier"], "")
         message_lines.append(
-            f"#{token_id} → {emoji} **{data['tier']}** | Rank: **{data['rank']}** | Percentile: **{data['percentile']}%**"
+            f"NFT #{token_id} → {emoji} **{data['tier']}** | Rank: **{data['rank']}** | Percentile: **{data['percentile']}%**"
         )
 
     await interaction.response.send_message("\n".join(message_lines), ephemeral=True)
