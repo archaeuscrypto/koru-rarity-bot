@@ -27,6 +27,38 @@ async def on_ready():
     except Exception as e:
         print(f'Error syncing commands: {e}')
 
+# /info command
+@bot.tree.command(name="info", description="Show all available bot commands")
+async def info(interaction: discord.Interaction):
+    message = (
+        "**Available Commands:**\n"
+        "• `/rarity <number>` → Check rarity of a specific NFT\n"
+        "• `/top` → Show top 25 rarest NFTs\n"
+        "• `/stats` → Show total supply per rarity tier\n"
+        "• `/info` → Show this list of commands"
+    )
+    await interaction.response.send_message(message, ephemeral=True)
+
+# /stats command
+@bot.tree.command(name="stats", description="Show total supply of NFTs per tier")
+async def stats(interaction: discord.Interaction):
+    tier_counts = {tier: 0 for tier in tier_emojis.keys()}
+
+    for data in rarity_data.values():
+        tier = data["tier"]
+        if tier in tier_counts:
+            tier_counts[tier] += 1
+
+    message_lines = ["**NFT Supply per Tier** 📊"]
+    for tier, count in tier_counts.items():
+        emoji = tier_emojis.get(tier, "")
+        message_lines.append(f"{emoji} **{tier}**: {count}")
+
+    total = len(rarity_data)
+    message_lines.append(f"\n**Total NFTs:** {total}")
+
+    await interaction.response.send_message("\n".join(message_lines), ephemeral=True)
+
 # /rarity command
 @bot.tree.command(name="rarity", description="Check rarity of a token by number")
 async def rarity(interaction: discord.Interaction, nft_number: int):
