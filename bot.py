@@ -35,7 +35,7 @@ async def rarity(interaction: discord.Interaction, nft_number: int):
         data = rarity_data[token_str]
         emoji = tier_emojis.get(data["tier"], "")
         message = (
-            f"**#{nft_number}**\n"
+            f"**NFT #{nft_number}**\n"
             f"Tier: {emoji} **{data['tier']}**\n"
             f"Rank: **{data['rank']}**\n"
             f"Percentile: **{data['percentile']}%**"
@@ -47,7 +47,7 @@ async def rarity(interaction: discord.Interaction, nft_number: int):
         )
 
 # /top command
-@bot.tree.command(name="top", description="Show the top 5 rarest tokens")
+@bot.tree.command(name="top", description="Show the top 25 rarest nfts")
 async def top(interaction: discord.Interaction):
     # Sort tokens by rank ascending
     sorted_tokens = sorted(
