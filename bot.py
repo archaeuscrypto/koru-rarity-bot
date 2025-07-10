@@ -4,7 +4,7 @@ import json
 import os
 
 # Add allowed user IDs here (as integers)
-ALLOWED_USER_IDS = {1031627979975049308, 768910258570919947}  # Replace with actual user IDs
+ALLOWED_USER_IDS = {1031627979975049308, 768910258570919947, 908499792043335680}  # Replace with actual user IDs
 
 with open('rarity-ranking.json') as f:
     rarity_data = json.load(f)
