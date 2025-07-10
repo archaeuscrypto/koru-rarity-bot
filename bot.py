@@ -4,7 +4,7 @@ import json
 import os
 
 # Add allowed user IDs here (as integers)
-ALLOWED_USER_IDS = {1031627979975049308, 768910258570919947, 908499792043335680}  # Replace with actual user IDs
+ALLOWED_USER_IDS = {1031627979975049308, 768910258570919947}  # Replace with actual user IDs
 
 with open('rarity-ranking.json') as f:
     rarity_data = json.load(f)
@@ -20,7 +20,7 @@ tier_emojis = {
 
 intents = discord.Intents.default()
 intents.message_content = True  # Required to read message content
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix=commands.when_mentioned, intents=intents)
 
 @bot.event
 async def on_ready():
@@ -37,8 +37,8 @@ async def on_message(message: discord.Message):
     # Ignore messages from bots
     if message.author.bot:
         return
-    # Allow slash commands or messages from allowed users
-    if message.content.startswith("/") or message.author.id in ALLOWED_USER_IDS:
+    # Allow messages from allowed users only
+    if message.author.id in ALLOWED_USER_IDS:
         await bot.process_commands(message)
         return
     try:
